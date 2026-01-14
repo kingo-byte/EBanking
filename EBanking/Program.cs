@@ -1,6 +1,8 @@
+using Bal.Services;
 using Bal.User;
 using Common;
 using Dal;
+using Dal.Repositories;
 using Microsoft.Extensions.Options;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -36,7 +38,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpClient("GeneralHttpClient");
 
 builder.Services.AddTransient<DapperAccess>(); 
-builder.Services.AddTransient<UserBal>(); 
+builder.Services.AddTransient<UserBal>();
+
+// Register Repository
+builder.Services.AddScoped<TransactionRepository>();
+
+// Register Service
+builder.Services.AddScoped<Transaction>();
 
 WebApplication app = builder.Build();
 
